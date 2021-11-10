@@ -1,0 +1,5 @@
+export const isString = (val: unknown): boolean => typeof val === 'string'
+export const isNumber = (val: unknown): boolean => typeof val === 'number'
+export const isBoolean = (val: unknown): boolean => typeof val === 'boolean'
+export const isObject = (val: unknown): boolean => Object.prototype.toString.call(val) === '[object Object]'
+export const isFunction = (val: unknown): boolean => typeof val === 'function'
