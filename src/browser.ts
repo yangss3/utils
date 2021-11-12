@@ -1,3 +1,5 @@
+import { isBrowser } from './is'
+
 /**
  * 文件转 base64
  * @param file 文件的二进制Blob对象
@@ -22,6 +24,7 @@ export function downloadFile (
   fileName: string,
   fileType?: string
 ) {
+  if (!isBrowser) return
   let url: string
   if (typeof file === 'string') {
     url = file
@@ -47,5 +50,6 @@ export function downloadFile (
  * 触发浏览器resize事件
  */
 export function triggerResize () {
+  if (!isBrowser) return
   window.dispatchEvent(new Event('resize'))
 }

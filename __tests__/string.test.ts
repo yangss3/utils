@@ -1,4 +1,4 @@
-import { splitStrByLen, splitStrByLenReverse, ensurePrefix } from '../src'
+import { splitStrByLen, splitStrByLenReverse, ensurePrefix, reverseStr } from '../src'
 
 test('splitStrByLen', () => {
   expect(splitStrByLen('abcdefg')).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
@@ -20,4 +20,10 @@ test('splitStrByLenReverse', () => {
 test('ensurePrefix', () => {
   expect(ensurePrefix('__', 'hello')).toBe('__hello')
   expect(ensurePrefix('__', '__hello')).toBe('__hello')
+})
+
+test('reverseStr', () => {
+  expect(reverseStr('1234567')).toBe('7654321')
+  expect(reverseStr('')).toBe('')
+  expect(reverseStr(' 123')).toBe('321 ')
 })

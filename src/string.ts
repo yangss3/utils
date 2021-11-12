@@ -47,3 +47,7 @@ export function splitStrByLenReverse (str: string, len = 1): string[] {
     }
   }
 }
+
+export function reverseStr (str: string) {
+  return str.split('').reverse().join('')
+}

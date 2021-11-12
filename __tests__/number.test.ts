@@ -1,24 +1,31 @@
 import { add, minus, multiply, divide, toNumber, decimalCount, toThousandSeparated } from '../src'
 
 test('add', () => {
+  expect(add(0.1)).toBe(0.1)
   expect(add(0.1, 0.2)).toBe(0.3)
-  expect(add(1.1, 0.2)).toBe(1.3)
-  expect(add(0.123, 10.324)).toBe(10.447)
-  expect(add(1.12, -0.01)).toBe(1.11)
+  expect(add(0.1, 0.2, 0.3)).toBe(0.6)
+  expect(add(0.1, 0.2, 0.3, 0.1)).toBe(0.7)
+  expect(add(0.123, 10.324, -0.01)).toBe(10.437)
 })
 
 test('minus', () => {
-  expect(minus(0.1, 0.3)).toBe(-0.2)
-  expect(minus(1.2, 0.1)).toBe(1.1)
+  expect(minus(0.1)).toBe(0.1)
+  expect(minus(0.3, 0.2)).toBe(0.1)
+  expect(minus(0.3, 0.2, 0.1)).toBe(0)
+  expect(minus(0.3, 0.2, -0.1)).toBe(0.2)
 })
 
 test('multiply', () => {
+  expect(multiply(0.1)).toBe(0.1)
   expect(multiply(0.1, 0.1)).toBe(0.01)
+  expect(multiply(0.1, 0.1, 0.1)).toBe(0.001)
+  expect(multiply(0.1, 0.2, 0.3, 0.4)).toBe(0.0024)
   expect(multiply(12, 0.1)).toBe(1.2)
 })
 
 test('divide', () => {
   expect(divide(0.1, 0.2)).toBe(0.5)
+  expect(divide(0.1, 0.1, 0.1)).toBe(10)
 })
 
 test('toNumber', () => {

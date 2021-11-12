@@ -10,34 +10,55 @@ export function toNumber (val: string | number) {
   return isNumber(val) ? val : parseFloat(val)
 }
 
-export function add (a: number, b: number) {
-  a = toNumber(a)
-  b = toNumber(b)
-  if (isInteger(a) && isInteger(b)) {
-    return a + b
+export function add (n1: number, ...args: number[]): number {
+  n1 = toNumber(n1)
+  if (args.length === 0) {
+    return n1
+  } else if (args.length === 1) {
+    const n2 = toNumber(args[0])
+    if (isInteger(n1) && isInteger(n2)) {
+      return n1 + n2
+    } else {
+      const scale = 10 ** Math.max(decimalCount(n1), decimalCount(n2))
+      return (n1 * scale + n2 * scale) / scale
+    }
   } else {
-    const scale = 10 ** Math.max(decimalCount(a), decimalCount(b))
-    return (a * scale + b * scale) / scale
+    return add(add(n1, args[0]), ...args.slice(1))
   }
 }
 
-export function minus (a: number, b: number) { return add(a, -b) }
+export function minus (n1: number, ...args: number[]): number {
+  return add(n1, ...args.map(n => -n))
+}
 
-export function multiply (a: number, b: number) {
-  a = toNumber(a)
-  b = toNumber(b)
-  if (isInteger(a) && isInteger(b)) {
-    return a * b
+export function multiply (n1: number, ...args: number[]): number {
+  n1 = toNumber(n1)
+  if (args.length === 0) {
+    return n1
+  } else if (args.length === 1) {
+    let n2 = toNumber(args[0])
+    if (isInteger(n1) && isInteger(n2)) {
+      return n1 * n2
+    } else {
+      const c1 = decimalCount(n1)
+      const c2 = decimalCount(n2)
+      n1 = n1 * (10 ** c1)
+      n2 = n2 * (10 ** c2)
+      return (n1 * n2) / (10 ** (c1 + c2))
+    }
   } else {
-    const n1 = decimalCount(a)
-    const n2 = decimalCount(b)
-    a = a * (10 ** n1)
-    b = b * (10 ** n2)
-    return (a * b) / (10 ** (n1 + n2))
+    return multiply(multiply(n1, args[0]), ...args.slice(1))
   }
 }
 
-export function divide (a: number, b: number) { return toNumber(a) / toNumber(b) }
+export function divide (n1: number, ...args: number[]): number {
+  n1 = toNumber(n1)
+  if (args.length === 0) {
+    return n1
+  } else {
+    return args.reduce((p, c) => p / toNumber(c), n1)
+  }
+}
 
 /**
  * 将数值转换为千分位表示法
@@ -59,5 +80,3 @@ export function toThousandSeparated (val: number | string) {
   const str = unIntLen <= 3 ? unIntNumStr : splitStrByLenReverse(unIntNumStr, 3).join(',')
   return `${symbol}${str}${decimalStr}`
 }
-
-
