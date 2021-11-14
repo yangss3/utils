@@ -1,3 +1,6 @@
+import { unique } from './array'
+import { isPrimitive, isArray, isUndef, isFunction, isSameBaseType } from './is'
+
 export function throttle<T extends (...args: any[]) => any> (f: T, ms: number) {
   let isCoolDown = false
   let savedArgs: any[] | null = null
@@ -47,11 +50,35 @@ export function debounce<T extends (...args: any[]) => any> (f: T, ms: number) {
   return wrapper
 }
 
+export function deepClone<T> (val: T): T {
+  if (isPrimitive(val) || isFunction(val)) {
+    return val
+  } if (isArray(val)) {
+    return val.map(v => deepClone(v)) as unknown as T
+  } else {
+    return Object.keys(val).reduce((p, c) => {
+      p[c as keyof T] = deepClone(val[c as keyof T])
+      return p
+    }, {} as T)
+  }
+}
 
-// export function deepMerge () {
-
-// }
-
-// export function deepClone () {
-
-// }
+export function deepMerge<Dest, Src> (dest: Dest, src: Src): Dest & Src {
+  if (isPrimitive(src) || isFunction(src) || !isSameBaseType(dest, src)) {
+    return deepClone(src) as Dest & Src
+  } else {
+    const destKeys = Object.keys(dest)
+    const srcKeys = Object.keys(src)
+    const allKeys = unique([...destKeys, ...srcKeys])
+    const res = isArray(src) ? [] : {} as any
+    return allKeys.reduce((p, c) => {
+      const k = c as keyof (Dest | Src)
+      if (isUndef(src[c as keyof Src])) {
+        p[k] = deepClone(dest[k])
+      } else {
+        p[k] = deepMerge(dest[k], src[k])
+      }
+      return p
+    }, res)
+  }
+}

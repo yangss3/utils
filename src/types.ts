@@ -1,5 +1,6 @@
 export type MaybeArray<T> = T | T[]
 export type Fn<T = void> = () => T
+export type RefObj = any[] | Record<string, any>
 
 export type IsNever<T> = [T] extends [never] ? true : false
 export type IsAny<T> = 0 extends (1 & T) ? true : false
