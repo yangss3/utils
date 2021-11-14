@@ -51,3 +51,29 @@ export function splitStrByLenReverse (str: string, len = 1): string[] {
 export function reverseStr (str: string) {
   return str.split('').reverse().join('')
 }
+
+export function upperFirst (str: string) {
+  return str === '' ? str : `${str[0].toUpperCase()}${str.slice(1)}`
+}
+
+export function lowerFirst (str: string) {
+  return str === '' ? str : `${str[0].toLowerCase()}${str.slice(1)}`
+}
+
+export function capitalize (str: string) {
+  return str === '' ? str : `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`
+}
+
+
+// export function camelCase(str: string): string {
+//   // fooBar
+// }
+// export function kebabCase(str: string): string {
+//   // foo-bar
+// }
+// export function snakeCase(str: string): string {
+//   // foo_bar
+// }
+// export function camelCase(str: string): string {
+
+// }
