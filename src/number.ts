@@ -1,6 +1,8 @@
 import { splitStrByLenReverse } from './string'
-import { isNumber } from './is'
+import { isNumber, isUndef, isBoolean } from './is'
+
 const { isInteger, parseFloat } = Number
+const { random: _random, floor } = Math
 
 export function decimalCount (val: number) {
   return isInteger(val) ? 0 : val.toString().split('').reverse().indexOf('.')
@@ -27,7 +29,7 @@ export function add (n1: number, ...args: number[]): number {
   }
 }
 
-export function minus (n1: number, ...args: number[]): number {
+export function subtract (n1: number, ...args: number[]): number {
   return add(n1, ...args.map(n => -n))
 }
 
@@ -79,4 +81,43 @@ export function toThousandSeparated (val: number | string) {
   const unIntLen = unIntNumStr.length
   const str = unIntLen <= 3 ? unIntNumStr : splitStrByLenReverse(unIntNumStr, 3).join(',')
   return `${symbol}${str}${decimalStr}`
+}
+
+/**
+ * 在指定范围内生成一个随机数
+ *
+ * @example
+ * random(10) // 生成 [0, 10) 内的一个整数
+ * random(10.5) // 生成 [0, 10.5) 内的一个小数
+ * random(10, true) // 生成 [0, 10) 内的一个小数
+ * random(10, 20) // 生成 [10, 20) 内的一个整数
+ * random(10, 20.5) // 生成 [10, 20.5) 内的一个小数
+ * random(10, 20, true) // 生成 [10, 20) 内的一个小数
+ */
+export function random (upper: number): number
+export function random (upper: number, floating: boolean): number
+export function random (lower: number, upper: number): number
+export function random (lower: number, upper: number, floating: boolean): number
+export function random (...args: any[]) {
+  const [p1, p2, p3] = args
+  let r: number
+  if (isUndef(p2) || isBoolean(p2)) {
+    r = _random() * p1
+    return isUndef(p2)
+      ? isInteger(p1)
+        ? floor(r)
+        : r
+      : p2 === true
+        ? r
+        : floor(r)
+  } else {
+    r = p1 + _random() * (p2 - p1)
+    return isUndef(p3)
+      ? isInteger(p1) && isInteger(p2)
+        ? floor(r)
+        : r
+      : p3 === true
+        ? r
+        : floor(r)
+  }
 }

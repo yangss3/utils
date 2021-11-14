@@ -1,4 +1,4 @@
-import { add, minus, multiply, divide, toNumber, decimalCount, toThousandSeparated } from '../src'
+import { add, subtract, multiply, divide, toNumber, decimalCount, toThousandSeparated, random } from '../src'
 
 test('add', () => {
   expect(add(0.1)).toBe(0.1)
@@ -8,11 +8,11 @@ test('add', () => {
   expect(add(0.123, 10.324, -0.01)).toBe(10.437)
 })
 
-test('minus', () => {
-  expect(minus(0.1)).toBe(0.1)
-  expect(minus(0.3, 0.2)).toBe(0.1)
-  expect(minus(0.3, 0.2, 0.1)).toBe(0)
-  expect(minus(0.3, 0.2, -0.1)).toBe(0.2)
+test('subtract', () => {
+  expect(subtract(0.1)).toBe(0.1)
+  expect(subtract(0.3, 0.2)).toBe(0.1)
+  expect(subtract(0.3, 0.2, 0.1)).toBe(0)
+  expect(subtract(0.3, 0.2, -0.1)).toBe(0.2)
 })
 
 test('multiply', () => {
@@ -47,3 +47,22 @@ test('toThousandSeparated', () => {
   expect(toThousandSeparated('-12345.67')).toBe('-12,345.67')
 })
 
+test('random', () => {
+  for (let i = 0; i < 500; i++) {
+    expect(random(10)).toBeLessThan(10)
+    expect(Number.isInteger(random(10))).toBe(true)
+    expect(random(10.5)).toBeLessThan(10.5)
+    expect(Number.isInteger(random(10.5))).toBe(false)
+    expect(random(10, true)).toBeLessThan(10)
+    expect(Number.isInteger(random(10, true))).toBe(false)
+    expect(random(10, 30)).toBeLessThan(30)
+    expect(random(10, 30)).toBeGreaterThanOrEqual(10)
+    expect(Number.isInteger(random(10, 30))).toBe(true)
+    expect(random(10, 30.5)).toBeLessThan(30.5)
+    expect(random(10, 30.5)).toBeGreaterThanOrEqual(10)
+    expect(Number.isInteger(random(10, 30.5))).toBe(false)
+    expect(random(10, 30, true)).toBeLessThan(30)
+    expect(random(10, 30, true)).toBeGreaterThanOrEqual(10)
+    expect(Number.isInteger(random(10, 30, true))).toBe(false)
+  }
+})
