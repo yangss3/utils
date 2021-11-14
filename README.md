@@ -15,7 +15,7 @@ yarn add @yangss/utils
 ```
 
 ## Utils
-### is
+### assertion
 - `isBrowser`
 - `isString`
 - `isNumber`
@@ -28,6 +28,8 @@ yarn add @yangss/utils
 - `isNull`
 - `isPrimitive`
 - `isSameBaseType`
+- `isPromise`
+- `isFalsy`
 - `isPhoneNumber`
 - `isEmail`
 ### array
@@ -39,12 +41,16 @@ yarn add @yangss/utils
 - `splitStrByLen`
 - `splitStrByLenReverse`
 - `reverseStr`
+- `upperFirst`
+- `lowerFirst`
+- `capitalize`
 ### number
 - `toNumber`
 - `add`
-- `minus`
+- `subtract`
 - `divide`
 - `toThousandSeparated`
+- `random`
 ### function
 - `throttle`
 - `debounce`
