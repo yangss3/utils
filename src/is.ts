@@ -11,6 +11,7 @@ export const isFunction = <T extends Function>(val: unknown): val is T => typeof
 export const isSymbol = (val: unknown): val is Symbol => typeof val === 'symbol'
 export const isUndef = (val: unknown): val is undefined => typeof val === 'undefined'
 export const isNull = (val: unknown): val is null => toString(val) === '[object Null]'
+export const isPromise = <T>(val: unknown): val is Promise<T> => val instanceof Promise
 export const isPrimitive = (val: unknown): boolean => !isArray(val) && !isObject(val) && !isFunction(val)
 export const isSameBaseType = (val1: unknown, val2: unknown) => {
   if (isArray(val1) && isArray(val2)) return true
@@ -20,6 +21,14 @@ export const isSameBaseType = (val1: unknown, val2: unknown) => {
   else return false
 }
 
+export const isFalsy = (val: unknown): boolean => {
+  return val === false ||
+    val === undefined ||
+    val === null ||
+    val === '' ||
+    val === 0 ||
+    Number.isNaN(val)
+}
+
 export const isPhoneNumber = (val: string) => /^[1]\d{10}$/.test(val)
 export const isEmail = (val: string) => /^[^\s@]+@[^\s@]+$/.test(val)
-

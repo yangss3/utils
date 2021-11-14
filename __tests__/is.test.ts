@@ -1,4 +1,17 @@
-import { isBoolean, isNumber, isString, isObject, isFunction, isUndef, isNull, isSymbol, isPrimitive, isSameBaseType } from '../src'
+import {
+  isBoolean,
+  isNumber,
+  isString,
+  isObject,
+  isFunction,
+  isUndef,
+  isNull,
+  isSymbol,
+  isPrimitive,
+  isSameBaseType,
+  isPromise,
+  isFalsy
+} from '../src'
 
 test('isString', () => {
   expect(isString('hello')).toBe(true)
@@ -67,7 +80,12 @@ test('isSameBaseType', () => {
   expect(isSameBaseType(Symbol('a'), Symbol('b'))).toBe(true)
   expect(isSameBaseType({}, { a: 1 })).toBe(true)
   expect(isSameBaseType([], [1, 2])).toBe(true)
-  expect(isSameBaseType(() => {}, function () {})).toBe(true)
+  expect(
+    isSameBaseType(
+      () => {},
+      function () {}
+    )
+  ).toBe(true)
 
   expect(isSameBaseType(null, undefined)).toBe(false)
   expect(isSameBaseType(null, 0)).toBe(false)
@@ -82,3 +100,22 @@ test('isSameBaseType', () => {
   expect(isSameBaseType(() => {}, {})).toBe(false)
 })
 
+test('isPromise', () => {
+  expect(isPromise(1)).toBe(false)
+  expect(isPromise(Promise.resolve())).toBe(true)
+  expect(isPromise(Promise.resolve(1))).toBe(true)
+  expect(isPromise((async () => {})())).toBe(true)
+})
+
+
+test('isFalsy', () => {
+  expect(isFalsy('')).toBe(true)
+  expect(isFalsy(0)).toBe(true)
+  expect(isFalsy(-0)).toBe(true)
+  expect(isFalsy(Number('a'))).toBe(true)
+  expect(isFalsy(NaN)).toBe(true)
+  expect(isFalsy(false)).toBe(true)
+  expect(isFalsy(undefined)).toBe(true)
+  expect(isFalsy(null)).toBe(true)
+  expect(isFalsy(' ')).toBe(false)
+})
