@@ -44,6 +44,9 @@ yarn add @yangss/utils
 - `upperFirst`
 - `lowerFirst`
 - `capitalize`
+- `camelCase`
+- `kebabCase`
+- `snakeCase`
 ### number
 - `toNumber`
 - `add`
