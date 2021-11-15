@@ -65,15 +65,19 @@ export function capitalize (str: string) {
 }
 
 
-// export function camelCase(str: string): string {
-//   // fooBar
-// }
-// export function kebabCase(str: string): string {
-//   // foo-bar
-// }
-// export function snakeCase(str: string): string {
-//   // foo_bar
-// }
-// export function camelCase(str: string): string {
+export function camelCase (str: string) {
+  return lowerFirst(str
+    .replace(/^[ _-]+/, '')
+    .replace(/[ _-]+$/, '')
+    .replace(/[A-Z][A-Z]+/g, (match, offset) => offset > 0 ? capitalize(match) : match.toLowerCase())
+    .replace(/[ _-]+([a-zA-Z])/g, (match, g1) => g1.toUpperCase())
+  )
+}
 
-// }
+export function kebabCase (str: string) {
+  return camelCase(str).replace(/([a-z])([A-Z])/g, (m, g1, g2) => `${g1}-${g2.toLowerCase()}`)
+}
+
+export function snakeCase (str: string) {
+  return kebabCase(str).replace(/-/g, '_')
+}
