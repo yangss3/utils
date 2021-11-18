@@ -1,3 +1,5 @@
+import { Fn } from './types'
+import { debounce as _debounce } from './func'
 import { isBrowser } from './is'
 
 /**
@@ -52,4 +54,19 @@ export function downloadFile (
 export function triggerResize () {
   if (!isBrowser) return
   window.dispatchEvent(new Event('resize'))
+}
+
+/**
+ * 注册窗口 resize 事件
+ * @param callback 回调函数
+ * @param debounce 是否去抖，默认 false
+ * @param ms 去抖时间间隔，默认 300
+ * @returns `() => void` 移除监听器
+ *
+ */
+export function resizeListener (callback: Fn, debounce = false, ms = 300) {
+  callback = debounce ? _debounce(callback, ms) : callback
+  const listener = () => callback()
+  window.addEventListener('resize', listener)
+  return () => window.removeEventListener('resize', listener)
 }
