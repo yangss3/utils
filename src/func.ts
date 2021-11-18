@@ -1,5 +1,6 @@
 import { unique } from './array'
 import { isPrimitive, isArray, isUndef, isFunction, isSameBaseType } from './is'
+import { random } from './number'
 
 export function throttle<T extends (...args: any[]) => any> (f: T, ms: number) {
   let isCoolDown = false
@@ -25,7 +26,6 @@ export function throttle<T extends (...args: any[]) => any> (f: T, ms: number) {
 
   return wrapper
 }
-
 
 export function debounce<T extends (...args: any[]) => any> (f: T, ms: number) {
   let timeoutId: any
@@ -81,4 +81,11 @@ export function deepMerge<Dest, Src> (dest: Dest, src: Src): Dest & Src {
       return p
     }, res)
   }
+}
+
+export function uniqueId (prefix?: string) {
+  const now = Date.now()
+  const rand = random(9 ** 13, 10 ** 13)
+  const uid = (now + rand).toString(16)
+  return prefix ? prefix + uid : uid
 }

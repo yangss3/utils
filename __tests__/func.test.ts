@@ -1,4 +1,4 @@
-import { deepClone, deepMerge } from '../src'
+import { deepClone, deepMerge, unique, uniqueId } from '../src'
 
 test('deepClone', () => {
   const src1 = [1, { a: 'a', b: [1, 2] }, [1, 2]] as const
@@ -65,3 +65,10 @@ test('deepMerge', () => {
   })
 })
 
+test('uniqueId', () => {
+  const ids: string[] = []
+  for (let i = 0; i < 10000; i++) {
+    ids.push(uniqueId())
+  }
+  expect(unique(ids).length).toBe(ids.length)
+})
