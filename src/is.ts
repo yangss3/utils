@@ -20,7 +20,6 @@ export const isSameBaseType = (val1: unknown, val2: unknown) => {
   else if (typeof val1 === typeof val2 && isPrimitive(val1) && isPrimitive(val2)) return true
   else return false
 }
-
 export const isFalsy = (val: unknown): boolean => {
   return val === false ||
     val === undefined ||

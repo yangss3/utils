@@ -51,6 +51,7 @@ yarn add @yangss/utils
 - `toNumber`
 - `add`
 - `subtract`
+- `multiply`
 - `divide`
 - `toThousandSeparated`
 - `random`
@@ -59,7 +60,9 @@ yarn add @yangss/utils
 - `debounce`
 - `deepClone`
 - `deepMerge`
+- `uniqueId`
 ### browser
 - `fileToBase64`
 - `downloadFile`
 - `triggerResize`
+- `resizeListener`
