@@ -1,6 +1,6 @@
 {
   "name": "@yangss/utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A collection of common JavaScript / TypeScript utils",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
