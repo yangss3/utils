@@ -16,7 +16,6 @@ yarn add @yangss/utils
 
 ## Utils
 ### assertion
-- `isBrowser`
 - `isString`
 - `isNumber`
 - `isBoolean`
@@ -30,6 +29,8 @@ yarn add @yangss/utils
 - `isSameBaseType`
 - `isPromise`
 - `isFalsy`
+- `isBrowser`
+- `isMobile`
 - `isPhoneNumber`
 - `isEmail`
 ### array

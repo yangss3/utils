@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 const toString = (val: unknown) => Object.prototype.toString.call(val)
 
-export const isBrowser = typeof window !== 'undefined'
 export const isString = (val: unknown): val is string => typeof val === 'string'
 export const isNumber = (val: unknown): val is number => typeof val === 'number'
 export const isBoolean = (val: unknown): val is boolean => typeof val === 'boolean'
@@ -27,6 +26,11 @@ export const isFalsy = (val: unknown): boolean => {
     val === '' ||
     val === 0 ||
     Number.isNaN(val)
+}
+
+export const isBrowser = typeof window !== 'undefined'
+export const isMobile = () => {
+  return 'ontouchstart' in document.documentElement
 }
 
 export const isPhoneNumber = (val: string) => /^[1]\d{10}$/.test(val)
