@@ -1,5 +1,5 @@
 import { unique } from './array'
-import { isPrimitive, isArray, isUndef, isFunction, isSameBaseType } from './is'
+import { isPrimitive, isArray, isObject, isUndef, isFunction, isSameType } from './is'
 import { random } from './number'
 
 export function throttle<T extends (...args: any[]) => any> (f: T, ms: number) {
@@ -51,9 +51,9 @@ export function debounce<T extends (...args: any[]) => any> (f: T, ms: number) {
 }
 
 export function deepClone<T> (val: T): T {
-  if (isPrimitive(val) || isFunction(val)) {
+  if (!isArray(val) && !isObject(val)) {
     return val
-  } if (isArray(val)) {
+  } else if (isArray(val)) {
     return val.map(v => deepClone(v)) as unknown as T
   } else {
     return Object.keys(val).reduce((p, c) => {
@@ -64,7 +64,7 @@ export function deepClone<T> (val: T): T {
 }
 
 export function deepMerge<Dest, Src> (dest: Dest, src: Src): Dest & Src {
-  if (isPrimitive(src) || isFunction(src) || !isSameBaseType(dest, src)) {
+  if (isPrimitive(src) || isFunction(src) || !isSameType(dest, src)) {
     return deepClone(src) as Dest & Src
   } else {
     const destKeys = Object.keys(dest)

@@ -4,7 +4,7 @@ A collection of common JavaScript / TypeScript utils
 - Tree-shakable ESM
 - Fully typed
 - Type utilities
-- Zero dependence
+- Zero dependencies
 
 ## Install
 ```sh
@@ -26,9 +26,13 @@ yarn add @yangss/utils
 - `isUndef`
 - `isNull`
 - `isPrimitive`
-- `isSameBaseType`
+- `isSameType`
 - `isPromise`
+- `isRegExp`
+- `isSet`
+- `isMap`
 - `isFalsy`
+- `isEqual`
 - `isBrowser`
 - `isMobile`
 - `isPhoneNumber`
