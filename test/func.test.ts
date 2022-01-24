@@ -26,6 +26,12 @@ test('deepClone', () => {
   expect(copy2.c.e[1].g).not.toBe(src2.c.e[1].g)
 })
 
+test('deep clone with loop reference', () => {
+  const obj = { a: 1, b: 2 } as any
+  obj.c = obj
+  expect(deepClone(obj)).toEqual(obj)
+})
+
 test('deepMerge', () => {
   expect(deepMerge(1, 2)).toEqual(2)
   expect(deepMerge(1, null)).toEqual(null)

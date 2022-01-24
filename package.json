@@ -21,23 +21,21 @@
     "build": "npm test && tsup src/index.ts --format cjs,esm --dts",
     "lint": "eslint src/* --fix",
     "prepare": "husky install",
-    "test": "jest",
+    "test": "vitest --global",
     "release": "npm run build && standard-version && git push --follow-tags && npm publish"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.2",
     "@types/node": "^15.6.0",
     "@yangss/eslint-config-ts": "^0.1.8",
     "@yangss/init-git-repo": "^0.0.7",
     "eslint": "^7.32.0",
     "esno": "^0.12.0",
     "husky": "^7.0.4",
-    "jest": "^27.3.1",
     "lint-staged": "^11.2.6",
     "standard-version": "^9.3.2",
-    "ts-jest": "^27.0.7",
     "tsup": "^5.6.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "vitest": "^0.2.0"
   },
   "lint-staged": {
     "*.(ts|js)": "eslint --fix"
