@@ -50,16 +50,22 @@ export function debounce<T extends (...args: any[]) => any> (f: T, ms: number) {
   return wrapper
 }
 
-export function deepClone<T> (val: T): T {
+export function deepClone<T> (val: T, cache = new WeakMap<any, any>()): T {
   if (!isArray(val) && !isObject(val)) {
     return val
-  } else if (isArray(val)) {
-    return val.map(v => deepClone(v)) as unknown as T
   } else {
-    return Object.keys(val).reduce((p, c) => {
-      p[c as keyof T] = deepClone(val[c as keyof T])
-      return p
-    }, {} as T)
+    if (cache.get(val)) {
+      return val
+    } else {
+      cache.set(val, true)
+      const copy = isArray(val)
+        ? val.map(v => deepClone(v, cache)) as unknown as T
+        : Object.keys(val).reduce((p, c) => {
+          p[c as keyof T] = deepClone(val[c as keyof T], cache)
+          return p
+        }, {} as T)
+      return copy
+    }
   }
 }
 
