@@ -18,7 +18,7 @@
     "url": "git+https://github.com/yangss3/utils.git"
   },
   "scripts": {
-    "build": "npm run test:run --run && tsup src/index.ts --format cjs,esm --dts",
+    "build": "npm run test:run && tsup src/index.ts --format cjs,esm --dts",
     "lint": "eslint src/* --fix",
     "prepare": "husky install",
     "test": "vitest --global",
