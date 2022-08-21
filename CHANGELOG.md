@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/yangss3/utils/compare/v0.0.11...v0.0.12) (2022-08-21)
+
+
+### Features
+
+* add jsdoc ([e9a0c3e](https://github.com/yangss3/utils/commit/e9a0c3ea16ddff4f5224c4d3ae9397ca0283cdc2))
+
 ### [0.0.11](https://github.com/yangss3/utils/compare/v0.0.10...v0.0.11) (2022-01-24)
 
 
