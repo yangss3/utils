@@ -1,4 +1,4 @@
-import { Fn } from './types'
+import type { Fn } from './types'
 import { debounce as _debounce } from './func'
 import { isBrowser } from './is'
 
@@ -6,7 +6,7 @@ import { isBrowser } from './is'
  * 文件转 base64
  * @param file 文件的二进制Blob对象
  */
-export function fileToBase64 (file: Blob): Promise<string> {
+export function fileToBase64(file: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -21,12 +21,13 @@ export function fileToBase64 (file: Blob): Promise<string> {
  * @param fileName 文件名
  * @param fileType 文件类型
  */
-export function downloadFile (
+export function downloadFile(
   file: Blob | string,
   fileName: string,
   fileType?: string
 ) {
-  if (!isBrowser) return
+  if (!isBrowser)
+    return
   let url: string
   if (typeof file === 'string') {
     url = file
@@ -51,20 +52,25 @@ export function downloadFile (
 /**
  * 触发浏览器resize事件
  */
-export function triggerResize () {
-  if (!isBrowser) return
+export function triggerWindowResize() {
+  if (!isBrowser)
+    return
   window.dispatchEvent(new Event('resize'))
 }
 
 /**
  * 注册窗口 resize 事件
  * @param callback 回调函数
- * @param debounce 是否去抖，默认 false
+ * @param debounce 是否去抖，默认 true
  * @param ms 去抖时间间隔，默认 300
  * @returns `() => void` 移除监听器
+ * @example
+ * const unlisten = onWindowResize(() => {
+ *  console.log('resize')
+ * }, true, 500)
  *
  */
-export function resizeListener (callback: Fn, debounce = false, ms = 300) {
+export function onWindowResize(callback: Fn, debounce = true, ms = 300) {
   callback = debounce ? _debounce(callback, ms) : callback
   const listener = () => callback()
   window.addEventListener('resize', listener)

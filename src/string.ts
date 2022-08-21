@@ -1,4 +1,10 @@
-export function ensurePrefix (prefix: string, str: string) {
+/**
+ * return a string and ensure it has a specific prefix
+ * @example
+ * ensurePrefix('$', 'abc') // '$abc'
+ * ensurePrefix('@', '@abc') // '@abc'
+ */
+export function ensurePrefix(prefix: string, str: string) {
   if (!str.startsWith(prefix)) {
     return prefix + str
   } else {
@@ -7,14 +13,11 @@ export function ensurePrefix (prefix: string, str: string) {
 }
 
 /**
- * 使用指定长度将字符串分割为数组
- * @param str 要分割的字符串
- * @param len 分割长度, 默认为 1
- * @returns string[]
+ * split a string to an array of strings and each string has the length of len
  * @example
- * const strArr = splitStrByLen('abcdefg', 3) // ['abc', 'def', 'g']
+ * splitStrByLen('abcdefg', 3) // ['abc', 'def', 'g']
  */
-export function splitStrByLen (str: string, len = 1): string[] {
+export function splitStrByLen(str: string, len = 1): string[] {
   if (len <= 1) {
     return str.split('')
   } else {
@@ -35,7 +38,7 @@ export function splitStrByLen (str: string, len = 1): string[] {
  * @example
  * const strArr = splitStrByLenReverse('abcdefg', 3) // ['a', 'bcd', 'efg']
  */
-export function splitStrByLenReverse (str: string, len = 1): string[] {
+export function splitStrByLenReverse(str: string, len = 1): string[] {
   if (len <= 1) {
     return str.split('')
   } else {
@@ -48,36 +51,38 @@ export function splitStrByLenReverse (str: string, len = 1): string[] {
   }
 }
 
-export function reverseStr (str: string) {
+/**
+ * reverse a string, and return a new one
+ */
+export function reverseStr(str: string) {
   return str.split('').reverse().join('')
 }
 
-export function upperFirst (str: string) {
+export function upperFirst(str: string) {
   return str === '' ? str : `${str[0].toUpperCase()}${str.slice(1)}`
 }
 
-export function lowerFirst (str: string) {
+export function lowerFirst(str: string) {
   return str === '' ? str : `${str[0].toLowerCase()}${str.slice(1)}`
 }
 
-export function capitalize (str: string) {
+export function capitalize(str: string) {
   return str === '' ? str : `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`
 }
 
 
-export function camelCase (str: string) {
+export function camelCase(str: string) {
   return lowerFirst(str
     .replace(/^[ _-]+/, '')
     .replace(/[ _-]+$/, '')
     .replace(/[A-Z][A-Z]+/g, (match, offset) => offset > 0 ? capitalize(match) : match.toLowerCase())
-    .replace(/[ _-]+([a-zA-Z])/g, (match, g1) => g1.toUpperCase())
-  )
+    .replace(/[ _-]+([a-zA-Z])/g, (match, g1) => g1.toUpperCase()))
 }
 
-export function kebabCase (str: string) {
+export function kebabCase(str: string) {
   return camelCase(str).replace(/([a-z])([A-Z])/g, (m, g1, g2) => `${g1}-${g2.toLowerCase()}`)
 }
 
-export function snakeCase (str: string) {
+export function snakeCase(str: string) {
   return kebabCase(str).replace(/-/g, '_')
 }

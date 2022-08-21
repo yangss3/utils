@@ -18,12 +18,12 @@ export const isPrimitive = (val: unknown): boolean => isNull(val) || (typeof val
 export const isSameType = (val: unknown, other: unknown) => toString(val) === toString(other)
 
 export const isFalsy = (val: unknown): boolean => {
-  return val === false ||
-    val === undefined ||
-    val === null ||
-    val === '' ||
-    val === 0 ||
-    Number.isNaN(val)
+  return val === false
+    || val === undefined
+    || val === null
+    || val === ''
+    || val === 0
+    || Number.isNaN(val)
 }
 
 export const isBrowser = typeof window !== 'undefined'
@@ -32,11 +32,13 @@ export const isMobile = () => 'ontouchstart' in document.documentElement
 export const isPhoneNumber = (val: string) => /^[1]\d{10}$/.test(val)
 export const isEmail = (val: string) => /^[^\s@]+@[^\s@]+$/.test(val)
 
-export function isEqual (val: any, other: any): boolean {
+export function isEqual(val: any, other: any): boolean {
   // if they are strictly equal, then return true directly
-  if (val === other || Object.is(val, other)) return true
+  if (val === other || Object.is(val, other))
+    return true
   // if they have different type, then return false directly
-  if (!isSameType(val, other)) return false
+  if (!isSameType(val, other))
+    return false
   else {
     // in here, they must have same type
     if (isRegExp(val)) {

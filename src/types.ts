@@ -34,11 +34,11 @@ export type UnionToIntersection<T> =
 
 export type PickByType<T extends Record<string, any>, U> = {
   [
-    K in keyof T as string extends any
-      ? T[K] extends U
-        ? K
-        : never
+  K in keyof T as string extends any
+    ? T[K] extends U
+      ? K
       : never
+    : never
   ]: T[K]
 }
 

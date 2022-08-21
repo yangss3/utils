@@ -4,15 +4,15 @@ import { isNumber, isUndef, isBoolean } from './is'
 const { isInteger, parseFloat } = Number
 const { random: _random, floor } = Math
 
-export function decimalCount (val: number) {
+export function decimalCount(val: number) {
   return isInteger(val) ? 0 : val.toString().split('').reverse().indexOf('.')
 }
 
-export function toNumber (val: string | number) {
+export function toNumber(val: string | number) {
   return isNumber(val) ? val : parseFloat(val)
 }
 
-export function add (n1: number, ...args: number[]): number {
+export function add(n1: number, ...args: number[]): number {
   n1 = toNumber(n1)
   if (args.length === 0) {
     return n1
@@ -29,11 +29,11 @@ export function add (n1: number, ...args: number[]): number {
   }
 }
 
-export function subtract (n1: number, ...args: number[]): number {
+export function subtract(n1: number, ...args: number[]): number {
   return add(n1, ...args.map(n => -n))
 }
 
-export function multiply (n1: number, ...args: number[]): number {
+export function multiply(n1: number, ...args: number[]): number {
   n1 = toNumber(n1)
   if (args.length === 0) {
     return n1
@@ -53,7 +53,7 @@ export function multiply (n1: number, ...args: number[]): number {
   }
 }
 
-export function divide (n1: number, ...args: number[]): number {
+export function divide(n1: number, ...args: number[]): number {
   n1 = toNumber(n1)
   if (args.length === 0) {
     return n1
@@ -68,9 +68,10 @@ export function divide (n1: number, ...args: number[]): number {
  * @param val 数值，可以是字符串
  * @returns 数字的千分位表示
  * @example
- * const numStr = toThousandSeparated(12345.6) // '12,345.6'
+ * toThousandSeparated(12345.6) // '12,345.6'
+ * toThousandSeparated('12345.6') // '12,345.6'
  */
-export function toThousandSeparated (val: number | string) {
+export function toThousandSeparated(val: number | string) {
   const num = toNumber(val)
   const symbol = num < 0 ? '-' : ''
   const numStr = num.toString()
@@ -98,7 +99,7 @@ export function random (upper: number): number
 export function random (upper: number, floating: boolean): number
 export function random (lower: number, upper: number): number
 export function random (lower: number, upper: number, floating: boolean): number
-export function random (...args: any[]) {
+export function random(...args: any[]) {
   const [p1, p2, p3] = args
   let r: number
   if (isUndef(p2) || isBoolean(p2)) {
@@ -120,4 +121,19 @@ export function random (...args: any[]) {
         ? r
         : floor(r)
   }
+}
+
+/**
+ *
+ * @param num Number or string of number
+ * @param precision Number of digits after the decimal point, must be integer
+ * @returns Returns a number in fixed-point notation.
+ *
+ * @example
+ * toFixedNum(1.2345, 2) // 1.23
+ * toFixedNum(-1.230, 3) // -1.23
+ */
+export function toFixedNum(num: number | string, precision: number) {
+  const n = toNumber(num)
+  return parseFloat(n.toFixed(precision))
 }

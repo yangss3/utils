@@ -1,4 +1,4 @@
-import { add, subtract, multiply, divide, toNumber, decimalCount, toThousandSeparated, random } from '../src'
+import { add, subtract, multiply, divide, toNumber, decimalCount, toThousandSeparated, random, toFixedNum } from '../src'
 
 test('add', () => {
   expect(add(0.1)).toBe(0.1)
@@ -65,4 +65,13 @@ test('random', () => {
     expect(random(10, 30, true)).toBeGreaterThanOrEqual(10)
     expect(Number.isInteger(random(10, 30, true))).toBe(false)
   }
+})
+
+
+test('toFixedNum', () => {
+  expect(toFixedNum(0.123, 0)).toBe(0)
+  expect(toFixedNum(0.123, 1)).toBe(0.1)
+  expect(toFixedNum(0.126, 2)).toBe(0.13)
+  expect(toFixedNum(0.120, 3)).toBe(0.12)
+  expect(toFixedNum('-1.120', 4)).toBe(-1.12)
 })

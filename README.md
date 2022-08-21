@@ -60,6 +60,7 @@ yarn add @yangss/utils
 - `divide`
 - `toThousandSeparated`
 - `random`
+- `toFixedNum`
 ### function
 - `throttle`
 - `debounce`
@@ -69,5 +70,5 @@ yarn add @yangss/utils
 ### browser
 - `fileToBase64`
 - `downloadFile`
-- `triggerResize`
-- `resizeListener`
+- `triggerWindowResize`
+- `onWindowResize`
