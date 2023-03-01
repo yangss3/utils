@@ -72,3 +72,5 @@ yarn add @yangss/utils
 - `downloadFile`
 - `triggerWindowResize`
 - `onWindowResize`
+- `getTextWidth`
+- `getTextWidthByCanvas`

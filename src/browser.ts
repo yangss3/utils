@@ -76,3 +76,64 @@ export function onWindowResize(callback: Fn, debounce = true, ms = 300) {
   window.addEventListener('resize', listener)
   return () => window.removeEventListener('resize', listener)
 }
+
+
+/**
+ * 获取给定的文本宽度, 使用 dom 测量
+ * @param text 文本
+ * @param style 样式
+ * @returns number
+ * @example
+ * getTextWidth('hello world', { fontSize: '14px', fontFamily: 'sans-serif' })
+ */
+export function getTextWidth(text: string, style: CSSStyleDeclaration) {
+  if (!isBrowser) {
+    console.warn('getTextWidthByDom can only be used in browser environment')
+    return 0
+  }
+
+  const dom = document.createElement('span')
+  dom.innerText = text
+  Object.assign(dom.style, style)
+  document.body.appendChild(dom)
+  const width = dom.offsetWidth
+  document.body.removeChild(dom)
+  return width
+}
+
+
+interface GetTextWidthByCanvas {
+  (text: string, style: string | CSSStyleDeclaration): number;
+  canvas?: HTMLCanvasElement;
+}
+
+/**
+ * 获取给定的文本宽度, 使用 canvas 测量
+ * @param text 文本
+ * @param style 样式
+ * @returns number
+ * @example
+ * getTextWidth('hello world', 'font-size: 14px; font-family: sans-serif;')
+ */
+
+export const getTextWidthByCanvas: GetTextWidthByCanvas = (text: string, style: string | CSSStyleDeclaration) => {
+  if (!isBrowser) {
+    console.warn('getTextWidth can only be used in browser environment')
+    return 0
+  }
+
+  const canvas = getTextWidthByCanvas.canvas || (getTextWidthByCanvas.canvas = document.createElement('canvas'))
+  const ctx = canvas.getContext('2d')!
+  ctx.font = typeof style === 'string'
+    ? style
+    : [
+      style.fontStyle,
+      style.fontVariant,
+      style.fontStretch,
+      style.fontWeight,
+      style.fontSize,
+      style.fontFamily
+    ].filter(Boolean).join(' ')
+
+  return ctx.measureText(text).width
+}
